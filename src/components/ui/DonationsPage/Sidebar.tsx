@@ -1,12 +1,13 @@
-"use client";
-import { useGetCategoriesQuery } from '@/redux/features/category/categoryApi';
 import { CategoryInterface } from '@/types/globalTypes';
 import React, { ChangeEvent, useEffect, useState } from 'react';
 
-const Sidebar = () => {
-  const [filter, setFilter] = useState({});
+interface SidebarInterface {
+  setFilter: Function,
+  categories: CategoryInterface[],
+  isLoading: boolean,
+}
 
-  const { data: categories, isLoading } = useGetCategoriesQuery();
+const Sidebar = ({ setFilter, categories, isLoading }: SidebarInterface) => {
 
   const handleFilter = (e: ChangeEvent<HTMLSelectElement>) => {
     setFilter({
@@ -15,7 +16,7 @@ const Sidebar = () => {
   }
 
   return (
-    <aside className='bg-primary/10 rounded-lg shadow-lg w-full flex-none lg:w-[260px] relative'>
+    <aside className='bg-primary/10 rounded-lg shadow-md w-full flex-none lg:w-[260px] relative'>
       <div className='flex flex-col sm:flex-row lg:flex-col gap-4 p-6 rounded-lg sticky top-16'>
         <select
           className="select select-primary"
