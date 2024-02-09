@@ -5,7 +5,8 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 
 const Sidebar = () => {
   const [filter, setFilter] = useState({});
-  const [categories, setCategories] = useState([]);
+
+  const { data: categories, isLoading } = useGetCategoriesQuery();
 
   const handleFilter = (e: ChangeEvent<HTMLSelectElement>) => {
     setFilter({
@@ -22,15 +23,18 @@ const Sidebar = () => {
           onChange={handleFilter}
         >
           {
-            categories?.length ?
-              <>
-                <option value="">All Categories</option>
-                {
-                  categories.map((category: CategoryInterface) => <option key={category._id} value={category._id}>{category.name}</option>)
-                }
-              </>
+            isLoading ?
+              <option value="">Loading Categories...</option>
               :
-              <option value="">Categories Not Found...</option>
+              categories?.length ?
+                <>
+                  <option value="">All Categories</option>
+                  {
+                    categories.map((category: CategoryInterface) => <option key={category._id} value={category._id}>{category.name}</option>)
+                  }
+                </>
+                :
+                <option value="">Categories Not Found...</option>
           }
         </select>
       </div>
