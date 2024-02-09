@@ -38,11 +38,11 @@ const socialLinks: FooterLink[] = [
   { name: "LinkedIn", href: "/contact", icon: <FaLinkedin /> }
 ]
 
-const Footer = () => {
+const Footer: React.FC = () => {
 
   return (
     <footer className='bg-primary-content/25'>
-      <div className="container mx-auto max-w-screen-xl flex flex-col justify-between py-10 px-2 space-y-8 lg:flex-row lg:space-y-0">
+      <div className="max-w-screen-xl mx-auto flex flex-col justify-between py-10 px-2 space-y-8 lg:flex-row lg:space-y-0">
         <div>
           <Link rel="noopener noreferrer" href="#" className="flex justify-center space-x-3">
             <div className="flex items-center justify-center w-12 h-12 rounded-full">

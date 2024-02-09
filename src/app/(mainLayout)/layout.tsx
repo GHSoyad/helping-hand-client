@@ -10,7 +10,7 @@ export default function RootLayout({
   return (
     <>
       <Navbar />
-      <div className="container mx-auto max-w-screen-xl px-2 min-h-[calc(100vh-328px)]">
+      <div className="min-h-[calc(100vh-328px)]">
         {children}
       </div>
       <Footer />

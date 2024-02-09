@@ -16,11 +16,11 @@ const navLinks: NavLink[] = [
   { title: "Contact", href: "/contact" }
 ]
 
-const Navbar = () => {
+const Navbar: React.FC = () => {
 
   return (
-    <div className="bg-primary-content/25 z-50 sticky top-0">
-      <div className="navbar justify-between container mx-auto max-w-screen-xl font-bold relative">
+    <div className="bg-primary-content/90 backdrop-blur-sm z-50 sticky top-0">
+      <div className="navbar justify-between max-w-screen-xl mx-auto font-bold relative">
         <Link href='/' className="mr-5">
           <div className='max-w-[40px] mr-3'>
             <Image alt='site-logo' src={siteLogo} width={100} />
