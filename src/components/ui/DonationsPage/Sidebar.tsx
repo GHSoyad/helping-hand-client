@@ -16,7 +16,7 @@ const Sidebar = ({ setFilter, categories, isLoading }: SidebarInterface) => {
   }
 
   return (
-    <aside className='bg-primary/10 rounded-lg shadow-md w-full flex-none lg:w-[260px] relative'>
+    <aside className='bg-primary-content/25 rounded-lg shadow-md w-full flex-none lg:w-[260px] relative'>
       <div className='flex flex-col sm:flex-row lg:flex-col gap-4 p-6 rounded-lg sticky top-16'>
         <select
           className="select select-primary"
