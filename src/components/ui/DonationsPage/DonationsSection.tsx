@@ -7,7 +7,7 @@ const DonationsSection = ({ donations, loading }: { donations: DonationInterface
 
 
   return (
-    <main className='bg-primary-content/25 rounded-lg shadow-md w-full grow p-6 relative min-h-[calc(100vh-392px)]'>
+    <main className='bg-primary-content/25 rounded-lg shadow-md w-full grow p-6 relative min-h-screen'>
       {
         loading ?
           <Loader />

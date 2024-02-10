@@ -12,8 +12,8 @@ const DonationPage = async ({ params }: { params: TParams }) => {
   const donation: DonationInterface = await res.json();
 
   return (
-    <div className='container mx-auto max-w-screen-xl px-2 md:px-4 xl:px-0 py-8'>
-      <main className='bg-primary-content/25 rounded-lg shadow-md p-4 md:p-6 relative min-h-[calc(100vh-392px)]'>
+    <div className='container mx-auto max-w-screen-xl min-h-screen px-2 md:px-4 xl:px-0 py-8'>
+      <main className='bg-primary-content/25 rounded-lg shadow-md p-4 md:p-6 relative'>
         <div className="relative w-full h-80">
           <Image
             src={donation.picture}

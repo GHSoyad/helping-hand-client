@@ -7,7 +7,7 @@ import DonationsSection from '@/components/ui/DonationsPage/DonationsSection';
 const DonationsPage = ({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) => {
   const { searchText } = searchParams;
   const [donations, setDonations] = useState([]);
-  const [loadingState, setLoadingState] = useState(false);
+  const [loadingState, setLoadingState] = useState(true);
   const [filter, setFilter] = useState({ category: "" });
   const { data: categories, isLoading } = useGetCategoriesQuery();
 

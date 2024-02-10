@@ -6,7 +6,7 @@ export default function MainLayout({ children }: Readonly<{ children: React.Reac
   return (
     <>
       <Navbar />
-      <div className="min-h-[calc(100vh-328px)]">
+      <div className="min-h-screen">
         {children}
       </div>
       <Footer />
