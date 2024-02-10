@@ -1,7 +1,10 @@
+"use client";
+
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import siteLogo from '@/assets/site-logo.png';
+import { signOut } from 'next-auth/react';
 
 interface NavLink {
   title: string;
@@ -12,11 +15,10 @@ const navLinks: NavLink[] = [
   { title: "Home", href: "/" },
   { title: "About", href: "/about" },
   { title: "Donations", href: "/donations" },
-  { title: "Volunteer", href: "/volunteer" },
   { title: "Contact", href: "/contact" }
 ]
 
-const Navbar: React.FC = () => {
+const Navbar = ({ session }: { session: boolean }) => {
 
   return (
     <div className="bg-primary-content/90 backdrop-blur-sm z-50 sticky top-0">
@@ -42,11 +44,33 @@ const Navbar: React.FC = () => {
                   </li>
                 ))
               }
+
+              {
+                session ?
+                  <>
+                    <li className='text-primary rounded-lg'>
+                      <Link href='/dashboard'>
+                        Dashboard
+                      </Link>
+                    </li>
+                    <li className='text-red-600 rounded-lg'>
+                      <button onClick={() => signOut()}>
+                        Logout
+                      </button>
+                    </li>
+                  </>
+                  :
+                  <li className='text-primary rounded-lg'>
+                    <Link href='/login'>
+                      Login
+                    </Link>
+                  </li>
+              }
             </ul>
           </div>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal p-0">
+          <ul className="menu menu-horizontal p-0 gap-1">
             {
               navLinks.map((link, index) => (
                 <li key={index} className='text-primary rounded-lg'>
@@ -55,6 +79,27 @@ const Navbar: React.FC = () => {
                   </Link>
                 </li>
               ))
+            }
+            {
+              session ?
+                <>
+                  <li className='text-primary rounded-lg'>
+                    <Link href='/dashboard'>
+                      Dashboard
+                    </Link>
+                  </li>
+                  <li className='text-red-600 rounded-lg border-2 border-red-600'>
+                    <button onClick={() => signOut()}>
+                      Logout
+                    </button>
+                  </li>
+                </>
+                :
+                <li className='text-primary rounded-lg'>
+                  <Link href='/login'>
+                    Login
+                  </Link>
+                </li>
             }
           </ul>
         </div>

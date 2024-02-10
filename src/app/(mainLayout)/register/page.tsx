@@ -1,22 +1,33 @@
 "use client";
 import Loader from '@/components/shared/Loader';
+import { createUser } from '@/utils/actions/createUser';
 import Link from 'next/link';
 import React, { FormEvent, useState } from 'react';
+import toast from 'react-hot-toast';
 
 const RegisterPage = () => {
-  const [loginInfo, setLoginInfo] = useState({});
+  const [loginInfo, setLoginInfo] = useState({
+    name: "",
+    email: "",
+    password: ""
+  });
   const [formLoading, setFormLoading] = useState(false);
 
 
   // Handle login
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    // setFormLoading(true);
-    console.log(loginInfo)
+    setFormLoading(true);
 
+    const res = await createUser(loginInfo);
+    if (res.success) {
+      toast.success(res.message);
+    } else {
+      toast.error(res.message);
+    }
+
+    setFormLoading(false);
   }
-
-  console.log(loginInfo)
 
   return (
     <div className='container mx-auto max-w-screen-xl px-2 md:px-4 xl:px-0 flex justify-center mt-20'>
@@ -63,8 +74,7 @@ const RegisterPage = () => {
                 placeholder="Your Password"
                 name='password'
                 className="input input-bordered w-full"
-                minLength={6}
-                pattern='/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/'
+                pattern='^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$'
                 title='Password must be 6 characters containing a Uppercase, a Lowercase and a digit'
                 onChange={(e) => setLoginInfo({ ...loginInfo, password: e.target.value })}
               />

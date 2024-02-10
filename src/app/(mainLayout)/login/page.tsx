@@ -1,21 +1,31 @@
 "use client";
 import Loader from '@/components/shared/Loader';
+import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import React, { FormEvent, useState } from 'react';
 
 const LoginPage = () => {
-  const [loginInfo, setLoginInfo] = useState({});
+  const [loginInfo, setLoginInfo] = useState({
+    email: "",
+    password: ""
+  });
   const [formLoading, setFormLoading] = useState(false);
 
 
   // Handle login
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setFormLoading(true);
 
+    const user = await signIn("helping-hand", {
+      email: loginInfo.email,
+      password: loginInfo.password,
+      callbackUrl: "/"
+    })
+
+    setFormLoading(false);
   }
 
-  console.log(loginInfo)
 
   return (
     <div className='container mx-auto max-w-screen-xl px-2 md:px-4 xl:px-0 flex justify-center mt-20'>
