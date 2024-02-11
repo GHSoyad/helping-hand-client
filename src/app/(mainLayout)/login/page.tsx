@@ -20,7 +20,7 @@ const LoginPage = () => {
     await signIn("helping-hand", {
       email: loginInfo.email,
       password: loginInfo.password,
-      callbackUrl: '/user/dashboard'
+      callbackUrl: '/dashboard'
     })
 
     setFormLoading(false);

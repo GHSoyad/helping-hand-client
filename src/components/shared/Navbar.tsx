@@ -49,7 +49,7 @@ const Navbar = ({ session }: { session: boolean }) => {
                 session ?
                   <>
                     <li className='text-primary rounded-lg'>
-                      <Link href='/user/dashboard'>
+                      <Link href='/dashboard'>
                         Dashboard
                       </Link>
                     </li>
@@ -84,7 +84,7 @@ const Navbar = ({ session }: { session: boolean }) => {
               session ?
                 <>
                   <li className='text-primary rounded-lg'>
-                    <Link href='/user/dashboard'>
+                    <Link href='/dashboard'>
                       Dashboard
                     </Link>
                   </li>
