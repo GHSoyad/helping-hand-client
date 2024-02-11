@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import EditDonationPage from '@/components/ui/AdminPages/EditDonation';
+import EditDonation from '@/components/ui/AdminPages/EditDonation';
 import AllDonations from '@/components/ui/AdminPages/AllDonations';
 import DeleteDonation from '@/components/ui/AdminPages/DeleteDonation';
 
@@ -18,7 +18,7 @@ const AllDonationsPage = () => {
             setDonationPage={setDonationPage}
           />
           : donationPage === 2 ?
-            <EditDonationPage
+            <EditDonation
               donation={modifyDonation}
               setModifyDonation={setModifyDonation}
               setDonationPage={setDonationPage}
