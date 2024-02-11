@@ -20,14 +20,14 @@ const dashboardLinks: IDashboardLink[] = [
 ]
 
 const adminLinks: IDashboardLink[] = [
-  { title: "Statistics", href: "/dashboard/admin/statistics", icon: <FaChartLine className='w-5 h-5' /> },
-  { title: "All Donations", href: "/dashboard/admin/all-donations", icon: <FaDollarSign className='w-5 h-5' /> },
-  { title: "Add Donation", href: "/dashboard/admin/add-donation", icon: <FaPlus className='w-5 h-5' /> },
-  { title: "All Users", href: "/dashboard/admin/all-users", icon: <FaUser className='w-5 h-5' /> },
+  { title: "Statistics", href: "/admin/statistics", icon: <FaChartLine className='w-5 h-5' /> },
+  { title: "All Donations", href: "/admin/all-donations", icon: <FaDollarSign className='w-5 h-5' /> },
+  { title: "Add Donation", href: "/admin/add-donation", icon: <FaPlus className='w-5 h-5' /> },
+  { title: "All Users", href: "/admin/all-users", icon: <FaUser className='w-5 h-5' /> },
 ]
 
 const userLinks: IDashboardLink[] = [
-  { title: "Donation History", href: "/dashboard/user/donation-history", icon: <FaDollarSign className='w-5 h-5' /> },
+  { title: "Donation History", href: "/dashboard/donation-history", icon: <FaDollarSign className='w-5 h-5' /> },
 ]
 
 const DashboardSidebar = ({ session }: { session: IDashboardSidebar }) => {

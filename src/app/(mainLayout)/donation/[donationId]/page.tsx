@@ -1,4 +1,5 @@
 import { DonationInterface } from '@/types/globalTypes';
+import { getDonationById } from '@/utils/actions/getDonationById';
 import Image from 'next/image';
 import React from 'react';
 
@@ -8,8 +9,7 @@ type TParams = {
 
 const DonationPage = async ({ params }: { params: TParams }) => {
 
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/donation/${params.donationId}`, { cache: 'no-store' });
-  const donation: DonationInterface = await res.json();
+  const donation = await getDonationById(params.donationId)
 
   return (
     <div className='container mx-auto max-w-screen-xl min-h-screen px-2 md:px-4 xl:px-0 py-8'>
