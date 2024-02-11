@@ -17,10 +17,10 @@ const LoginPage = () => {
     e.preventDefault();
     setFormLoading(true);
 
-    const user = await signIn("helping-hand", {
+    await signIn("helping-hand", {
       email: loginInfo.email,
       password: loginInfo.password,
-      callbackUrl: "/"
+      callbackUrl: '/user/dashboard'
     })
 
     setFormLoading(false);

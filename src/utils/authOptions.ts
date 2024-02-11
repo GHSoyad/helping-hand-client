@@ -24,7 +24,7 @@ export const authOptions = {
         const { content } = await res.json();
 
         // If no error and we have user data, return it
-        if (res.ok && content) {
+        if (res.status === 200 && content) {
           return { ...content };
         }
         // Return null if user data could not be retrieved
@@ -49,4 +49,7 @@ export const authOptions = {
     },
   },
   secret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET,
+  pages: {
+    signIn: '/login',
+  }
 };
