@@ -7,7 +7,6 @@ import DeleteDonation from '@/components/ui/AdminPages/DeleteDonation';
 const AllDonationsPage = () => {
   const [modifyDonation, setModifyDonation] = useState(null);
   const [donationPage, setDonationPage] = useState(1); // 1.All 2.Edit 3.Delete
-  console.log(donationPage)
 
   return (
     <>

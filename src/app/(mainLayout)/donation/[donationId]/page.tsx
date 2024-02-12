@@ -1,4 +1,4 @@
-import { DonationInterface } from '@/types/globalTypes';
+import Donate from '@/components/ui/DonationsPage/Donate';
 import { getDonationById } from '@/utils/actions/getDonationById';
 import Image from 'next/image';
 import React from 'react';
@@ -72,6 +72,7 @@ const DonationPage = async ({ params }: { params: TParams }) => {
               <span className='text-primary font-extrabold'>${(donation.goal - donation.raised)}</span>
             </div>
           </div>
+          <Donate id={donation._id} />
         </div>
       </main>
     </div>
