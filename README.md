@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Helping Hand
 
-## Getting Started
+### Live Website Link https://helping-hand-server-ghsoyad.vercel.app/
 
-First, run the development server:
+## Description
+The Project is developed using NextJS, NodeJS, ExpressJS, MongoDB, The app is responsive on smaller devices.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+#### Admin Login Details
+Email: john.doe@example.com
+Password: Admin@cadence123
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### CSS Framework
+TailWind CSS Framework and DaisyUI components
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### React Library's used
+Some of the library's that was used in the project
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+#### Redux Toolkit
+ - To preserve global state for master data
 
-## Learn More
+#### Next Auth
+ - To login and keep session for user
+ - To make dynamic paths for the website component
+ - To make private routing
+ - To redirect user
 
-To learn more about Next.js, take a look at the following resources:
+#### React Hot Toast
+ - To display messages
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+#### React Icons
+ - To display icons
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+#### React Chart JS 2
+ - To show statistics
 
-## Deploy on Vercel
+### Pages
+The website consists of 6 main pages
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+ - Home
+ - Login
+ - Register
+ - Donations
+ - Donation Details
+ - Dashboard
+ - Statistics
+ - My Donations (Admin)
+ - Add Donation (Seller)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+The Donation page is dynamic which changes based on selected donation
+Dashboard route is divided into 2 parts which changes based on user role
+
+### Features
+Features of the website
+
+ - Navbar can be used to navigate the website
+ - Navbar has conditional rendering based on user login and logout
+ - Homepage contains a Banner with search donation
+ - Donations page lists all donations
+ - Donations page have category filtering that fetches data based on selected category
+ - Each donation card shows donation details title, category, image, organizer, start date, end date, raised, goal, to go amount
+ - Donation card have a donate now button which opens a confirmation for payment
+ - Donation card have a bar representing a stat of current donated amount
+ - Login page has email-password login option
+ - Register page has email-password registration option
+ - Logging in with google will always give user the buyer role
+ - Login has jwt and next-auth implemented for user session validation
+ - Footer has some dummy links and social media icons
+ - Logged in user will see a dashboard and the dashboard shows different routes based on user role
+ - Dashboard home shows the user name, user email and user role
+ - Statistics page shows a pie-chart that shows users donation and total donation
+ - All donations shows all donations card with title, category, image, start date, a edit button and a delete button
+ - The add button will open a add product form fill and add a product
+ - The delete button will open a confirm form to delete donation from the database
