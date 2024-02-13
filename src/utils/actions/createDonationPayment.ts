@@ -1,8 +1,7 @@
 "use server";
-
 import { getServerSession } from "next-auth";
 import { authOptions } from "../authOptions";
-
+import { revalidateTag } from "next/cache";
 
 
 export const createDonationPayment = async (id: string) => {
@@ -23,5 +22,10 @@ export const createDonationPayment = async (id: string) => {
   });
 
   const paymentInfo = await res.json();
+
+  if (paymentInfo.success) {
+    revalidateTag('getDonationById');
+  }
+
   return paymentInfo;
 }

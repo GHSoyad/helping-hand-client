@@ -2,12 +2,11 @@
 import { createDonationPayment } from '@/utils/actions/createDonationPayment';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
-import React, { MouseEventHandler, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
-import { FaArrowRight } from 'react-icons/fa';
+
 
 const Donate = ({ id }: { id: string }) => {
-
   const [session, setSession] = useState({ _id: null });
   const [formLoading, setFormLoading] = useState(false);
   const [confirmation, setConfirmation] = useState(false);
@@ -32,9 +31,7 @@ const Donate = ({ id }: { id: string }) => {
         .catch(err => console.log(err))
         .finally(() => {
           setFormLoading(false);
-          setTimeout(() => {
-            window.location.reload();
-          }, 500);
+          setConfirmation(false);
         });
     }
     //eslint-disable-next-line
@@ -42,7 +39,7 @@ const Donate = ({ id }: { id: string }) => {
 
   const handleDonate = () => {
     toast((t) => (
-      <span>
+      <div className='text-center p-6'>
         <b>Donate $100 to this donation?</b>
         <button
           className='btn btn-sm border-primary border-2 bg-white mt-4 hover:text-white hover:bg-primary me-2'
@@ -56,14 +53,17 @@ const Donate = ({ id }: { id: string }) => {
         >
           Cancel
         </button>
-      </span>
-    ));
+      </div>
+    ),
+      {
+        duration: Infinity
+      });
   }
 
   return (
     <div>
       {
-        session ?
+        session?._id ?
           <button
             onClick={handleDonate}
             title="donate" className="btn border-primary border-2 bg-white mt-4 hover:text-white hover:bg-primary"
@@ -72,7 +72,13 @@ const Donate = ({ id }: { id: string }) => {
             <span className='me-2'>Donate $100</span>
           </button>
           :
-          <></>
+          <Link href='/login'>
+            <button
+              title="donate" className="btn border-primary border-2 bg-white mt-4 hover:text-white hover:bg-primary"
+            >
+              <span className='me-2'>Login to Donate</span>
+            </button>
+          </Link>
       }
     </div>
   );

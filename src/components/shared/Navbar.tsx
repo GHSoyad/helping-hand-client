@@ -1,5 +1,4 @@
 "use client";
-
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -19,9 +18,10 @@ const navLinks: NavLink[] = [
   { title: "Contact", href: "/contact" }
 ]
 
-const Navbar = ({ session }: { session: boolean }) => {
 
+const Navbar = ({ session }: { session: boolean }) => {
   const pathName = usePathname();
+
 
   return (
     <div className="bg-primary-content/90 backdrop-blur-sm z-50 sticky top-0">
@@ -47,7 +47,6 @@ const Navbar = ({ session }: { session: boolean }) => {
                   </li>
                 ))
               }
-
               {
                 session ?
                   <>
@@ -86,7 +85,7 @@ const Navbar = ({ session }: { session: boolean }) => {
             {
               session ?
                 <>
-                  <li className={`rounded-lg ${pathName.startsWith('/dashboard') || pathName.startsWith('/admin') ? "bg-primary text-white" : "text-primary"}`}>
+                  <li className={`rounded-lg focus:text-white focus:bg-primary active:text-white active:bg-primary ${pathName.startsWith('/dashboard') || pathName.startsWith('/admin') ? "bg-primary text-white" : "text-primary"}`}>
                     <Link className='hover:bg-primary hover:text-white' href='/dashboard'>
                       Dashboard
                     </Link>

@@ -8,6 +8,12 @@
   box-sizing: border-box;
 }
 
+.menu li a:focus,
+.menu li>*:not(ul):not(.menu-title):not(details):active {
+  color: white;
+  background-color: #6d0076;
+}
+
 /* Custom Loader */
 .loader {
   width: 50px;
