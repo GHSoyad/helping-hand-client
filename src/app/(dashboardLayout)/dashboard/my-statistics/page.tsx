@@ -7,8 +7,8 @@ import Loader from '@/components/shared/Loader';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 
-const StatisticsPage = () => {
-  const [session, setSession] = useState({ _id: null });
+const MyStatisticsPage = () => {
+  const [session, setSession] = useState({ _id: null, token: null });
   const [totalData, setTotalData] = useState({ totalDonation: 0, userTotalDonation: 0 });
   const [loadingState, setLoadingState] = useState(true);
 
@@ -25,21 +25,26 @@ const StatisticsPage = () => {
   useEffect(() => {
     if (session?._id) {
       setLoadingState(true);
-      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/statistics/user-total-donation/${session._id}`, { cache: 'no-store' })
+      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/statistics/user-total-donation/${session._id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${session?.token}`
+        },
+        cache: "no-cache",
+      })
         .then(res => res.json())
         .then(data => setTotalData(data.content))
         .catch(err => console.log(err))
         .finally(() => setLoadingState(false))
     }
-  }, [session?._id])
-
-
+  }, [session])
 
   const chartData = {
     labels: ['Total Donation', 'User Donation'],
     datasets: [
       {
-        data: [totalData.totalDonation, totalData.userTotalDonation],
+        data: [totalData?.totalDonation, totalData?.userTotalDonation],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
@@ -56,18 +61,18 @@ const StatisticsPage = () => {
   return (
     <div>
       <h2 className='text-center text-2xl font-medium pb-4'>My Donation Statistics</h2>
-      <div className='flex justify-center mt-5'>
-        <div className='max-w-96  relative'>
-          {
-            loadingState ?
-              <Loader />
-              :
+      <div className='flex justify-center mt-5 relative min-h-80'>
+        {
+          loadingState ?
+            <Loader />
+            :
+            <div className='max-w-96'>
               <Pie data={chartData} />
-          }
-        </div>
+            </div>
+        }
       </div>
     </div>
   );
 };
 
-export default StatisticsPage;
+export default MyStatisticsPage;
