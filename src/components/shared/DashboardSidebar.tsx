@@ -17,10 +17,10 @@ interface IDashboardLink {
 
 const dashboardLinks: IDashboardLink[] = [
   { title: "Dashboard", href: "/dashboard", icon: <FaHome className='w-5 h-5' /> },
+  { title: "Statistics", href: "/dashboard/statistics", icon: <FaChartLine className='w-5 h-5' /> },
 ]
 
 const adminLinks: IDashboardLink[] = [
-  { title: "Statistics", href: "/admin/statistics", icon: <FaChartLine className='w-5 h-5' /> },
   { title: "All Donations", href: "/admin/all-donations", icon: <FaDollarSign className='w-5 h-5' /> },
   { title: "Add Donation", href: "/admin/add-donation", icon: <FaPlus className='w-5 h-5' /> },
   { title: "All Users", href: "/admin/all-users", icon: <FaUser className='w-5 h-5' /> },
