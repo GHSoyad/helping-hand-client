@@ -19,12 +19,12 @@ const HeroBannerSearch: React.FC = () => {
   }
 
   return (
-    <div className="mt-8 flex flex-wrap justify-center gap-4">
+    <div className="mt-8">
       <form className="join" onSubmit={handleSubmit}>
         <div>
           <input
             required
-            className="input border-primary/50 focus:outline-none focus:border-primary join-item"
+            className="input w-full border-primary/50 focus:outline-none focus:border-primary join-item"
             placeholder="Search for active donations..."
             onChange={handleChange}
           />
@@ -32,7 +32,7 @@ const HeroBannerSearch: React.FC = () => {
         <div className="indicator">
           <button
             type='submit'
-            className="btn join-item bg-primary text-white border-primary hover:bg-primary-content hover:text-primary hover:border-primary"
+            className="btn join-item bg-primary text-white font-bold border-primary hover:bg-primary-content hover:text-primary hover:border-primary"
           >
             Search
           </button>

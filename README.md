@@ -45,6 +45,7 @@ The website consists of 6 main pages
  - Statistics
  - My Donations
  - Donations Statistics (Admin)
+ - All Donations (Admin)
  - Add Donation (Admin)
  - All Users (Admin)
  - 404 Not Found
@@ -75,7 +76,7 @@ Features of the website
  - Statistics page shows a pie-chart that shows users donation and total donation
  - All donations shows all donations card with title, category, image, start date, a edit button and a delete button
  - Donations Statistics page shows a line-chart that shows total amount of donations made in last seven days
- - The add button will open a add product form fill and add a product
+ - The add button will open a add donation form fill and add a donation
  - The delete button will open a confirm form to delete donation from the database
  - All users page list all users with name, email and role
  - Admin can make a user admin from here
