@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
 
-const MakeAdmin = ({ id, setUsers }: { id: string, setUsers: any }) => {
+const MakeAdmin = ({ id }: { id: string }) => {
   const [formLoading, setFormLoading] = useState(false);
   const [confirmation, setConfirmation] = useState(false);
 
@@ -16,18 +16,6 @@ const MakeAdmin = ({ id, setUsers }: { id: string, setUsers: any }) => {
         .then(data => {
           if (data.success) {
             toast.success(data.message);
-            setUsers((users: any) => (
-              users.map((user: any) => {
-                if (user._id === id) {
-                  return {
-                    ...user,
-                    role: "admin"
-                  }
-                } else {
-                  return user
-                }
-              })
-            ))
           } else {
             toast.error(data.message);
           }
