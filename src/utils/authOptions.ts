@@ -1,4 +1,5 @@
 import CredentialsProvider from "next-auth/providers/credentials";
+import toast from "react-hot-toast";
 
 export const authOptions = {
   // Configure one or more authentication providers
@@ -21,12 +22,15 @@ export const authOptions = {
           headers: { "Content-Type": "application/json" },
 
         });
-        const { content } = await res.json();
+        const user = await res.json();
 
         // If no error and we have user data, return it
-        if (res.status === 200 && content) {
-          return { ...content };
+        if (res.status === 200 && user) {
+          return user.content;
+        }else if(res.status === 409){
+          throw new Error(user.message)
         }
+
         // Return null if user data could not be retrieved
         return null;
       },

@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "@/lib/Providers";
 import { Toaster } from "react-hot-toast";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/utils/authOptions";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,9 +13,11 @@ export const metadata: Metadata = {
   description: "A Helping Hand for a Better Tomorrow: Join Us in Making Dreams Reality!",
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const session = await getServerSession(authOptions);
+
   return (
-    <Providers>
+    <Providers session={session}>
       <html lang="en" data-theme="fantasy">
         <body className={inter.className}>
           {children}

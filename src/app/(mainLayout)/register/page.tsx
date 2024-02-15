@@ -3,9 +3,12 @@ import Loader from '@/components/shared/Loader';
 import { createUser } from '@/utils/actions/createUser';
 import Link from 'next/link';
 import React, { FormEvent, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 
+
 const RegisterPage = () => {
+  const router = useRouter();
   const [loginInfo, setLoginInfo] = useState({
     name: "",
     email: "",
@@ -13,8 +16,7 @@ const RegisterPage = () => {
   });
   const [formLoading, setFormLoading] = useState(false);
 
-
-  // Handle login
+  // Handle register
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setFormLoading(true);
@@ -22,6 +24,7 @@ const RegisterPage = () => {
     const res = await createUser(loginInfo);
     if (res.success) {
       toast.success(res.message);
+      router.push("/login");
     } else {
       toast.error(res.message);
     }
@@ -29,9 +32,10 @@ const RegisterPage = () => {
     setFormLoading(false);
   }
 
+
   return (
-    <div className='container mx-auto max-w-screen-xl px-2 md:px-4 xl:px-0 flex justify-center mt-20'>
-      <div className='bg-primary-content/25 max-w-md p-4 md:p-8 border-2 border-primary rounded-lg flex-1 relative'>
+    <div className='container mx-auto max-w-screen-xl px-2 md:px-4 xl:px-0 flex justify-center min-h-[calc(100vh-64px)] relative'>
+      <div className='bg-primary-content/25 w-full max-w-md p-4 md:p-8 border-2 border-primary rounded-lg flex-1 h-min absolute top-1/2 -translate-y-1/2'>
         {
           formLoading && <Loader />
         }

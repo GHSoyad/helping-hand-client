@@ -1,35 +1,44 @@
 "use client";
+import React, { FormEvent, useState } from 'react';
 import Loader from '@/components/shared/Loader';
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
-import React, { FormEvent, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 const LoginPage = () => {
+  const router = useRouter();
+  const [formLoading, setFormLoading] = useState(false);
   const [loginInfo, setLoginInfo] = useState({
     email: "",
     password: ""
   });
-  const [formLoading, setFormLoading] = useState(false);
-
 
   // Handle login
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setFormLoading(true);
 
-    await signIn("helping-hand", {
+    const user = await signIn("helping-hand", {
       email: loginInfo.email,
       password: loginInfo.password,
-      callbackUrl: '/dashboard'
+      redirect: false,
     })
+
+    if (user?.ok) {
+      toast.success("Logged in Successfully!");
+      router.push("/dashboard");
+    } else {
+      toast.error(user?.error || "Unable to Login!");
+    }
 
     setFormLoading(false);
   }
 
 
   return (
-    <div className='container mx-auto max-w-screen-xl px-2 md:px-4 xl:px-0 flex justify-center mt-20'>
-      <div className='bg-primary-content/25 max-w-md p-4 md:p-8 border-2 border-primary rounded-lg flex-1 relative'>
+    <div className='container mx-auto max-w-screen-xl px-2 md:px-4 xl:px-0 flex justify-center min-h-[calc(100vh-64px)] relative'>
+      <div className='bg-primary-content/25 w-full max-w-md p-4 md:p-8 border-2 border-primary rounded-lg flex-1 h-min absolute top-1/2 -translate-y-1/2'>
         {
           formLoading && <Loader />
         }

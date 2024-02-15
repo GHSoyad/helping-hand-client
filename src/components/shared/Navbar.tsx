@@ -3,15 +3,15 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import siteLogo from '@/assets/site-logo.png';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
 
-interface NavLink {
+interface INavLink {
   title: string;
   href: string;
 }
 
-const navLinks: NavLink[] = [
+const navLinks: INavLink[] = [
   { title: "Home", href: "/" },
   { title: "About", href: "/about" },
   { title: "Donations", href: "/donations" },
@@ -19,8 +19,9 @@ const navLinks: NavLink[] = [
 ]
 
 
-const Navbar = ({ session }: { session: boolean }) => {
+const Navbar = () => {
   const pathName = usePathname();
+  const { data: session } = useSession();
 
 
   return (
