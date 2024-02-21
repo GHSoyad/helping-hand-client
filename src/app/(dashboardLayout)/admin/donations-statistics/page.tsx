@@ -1,6 +1,5 @@
 "use client"
-import React, { useEffect, useState } from 'react';
-import { getSession } from 'next-auth/react';
+import React, { ChangeEvent, useState } from 'react';
 import _ from 'lodash';
 import {
   Chart as ChartJS,
@@ -8,100 +7,104 @@ import {
   LinearScale,
   PointElement,
   LineElement,
-  Title,
   Tooltip,
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import Loader from '@/components/shared/Loader';
+import useGetMethod from '@/hooks/useGetMethod';
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
-  Title,
   Tooltip,
   Legend
 );
 
 interface IDonationStat {
-  _id: string,
+  date: string,
+  day: string,
   totalAmount: number
 }
 
 
 const DonationStatisticsPage = () => {
-  const [session, setSession] = useState({ _id: null, token: null });
-  const [statData, setStatData] = useState<IDonationStat[]>([]);
-  const [loadingState, setLoadingState] = useState(true);
+  const [filter, setFilter] = useState("7");
+  const { responseData: statData, setUrl } = useGetMethod<IDonationStat[]>({
+    initialUrl: `statistics/payments?days=7&currentWeek=0&currentMonth=0&currentYear=0`,
+    initialData: [],
+    initialLoader: true,
+    cache: "no-cache"
+  });
 
-  useEffect(() => {
-    setLoadingState(true);
-    getSession()
-      .then(data => setSession(data as any))
-      .catch(err => {
-        console.log(err)
-        setLoadingState(false)
-      })
-  }, [])
-
-  useEffect(() => {
-    if (session?._id) {
-      setLoadingState(true);
-      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/statistics/get-last-seven-days`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${session?.token}`
-        },
-        cache: "no-cache",
-      })
-        .then(res => res.json())
-        .then(data => setStatData(data.content))
-        .catch(err => console.log(err))
-        .finally(() => setLoadingState(false))
-    }
-  }, [session]);
+  const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const { value } = e.target;
+    setFilter(value);
+    setUrl(`statistics/payments?days=${typeof Number(value) ? value : 0}&currentWeek=${value === "currentWeek" ? 1 : 0}&currentMonth=${value === "currentMonth" ? 1 : 0}&currentYear=${value === "currentYear" ? 1 : 0}`)
+  }
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: false
       },
-      title: {
-        display: false,
-      },
     },
     scales: {
+      x: {
+        reverse: true,
+        ticks: {
+          maxTicksLimit: 15
+        }
+      },
       y: {
         min: 0,
-        max: ((_.max(_.map(statData, 'totalAmount')) || 0) + 100),
+        max: ((_.max(_.map(statData?.data, 'totalAmount')) || 0) + 100),
       }
     }
   };
 
   const chartData = {
-    labels: statData.map(stat => stat._id),
+    labels: statData?.data?.map(stat => stat?.date),
     datasets: [
       {
-        data: statData.map((stat) => stat.totalAmount),
+        label: "Amount Sold",
+        data: statData?.data?.map((stat) => stat.totalAmount),
         borderColor: '#6d0076',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        pointRadius: 3,
+        pointHoverRadius: 5
       }
     ],
   };
 
+
   return (
     <div>
-      <h2 className='text-center text-2xl font-medium pb-4'>Last 7 Days Donation Statistics</h2>
-      <div className='flex justify-center mt-5 relative px-0 py-8 md:p-8 min-h-96'>
+      <h2 className='text-center text-2xl font-medium pb-4'>{filter === "currentWeek" ? "This Weeks" : filter === "currentMonth" ? "This Months" : filter === 'currentYear' ? "This Years" : `Last ${filter} Days`} Donation Statistics</h2>
+      <div className='mb-6'>
+        <select
+          className="select select-primary"
+          name="filter"
+          onChange={handleChange}
+          value={filter}
+        >
+          <option value="currentWeek">This Week</option>
+          <option value="currentMonth">This Month</option>
+          <option value="currentYear">This Year</option>
+          <option value="7">Weekly</option>
+          <option value="30">Monthly</option>
+          <option value="365">Yearly</option>
+        </select>
+      </div>
+      <div className='flex justify-center relative min-h-96'>
         {
-          loadingState ?
-            <Loader />
-            :
-            <Line options={options} data={chartData} />
+          statData.loading && <Loader />
         }
+        <Line options={options} data={chartData} />
       </div>
     </div>
   );
