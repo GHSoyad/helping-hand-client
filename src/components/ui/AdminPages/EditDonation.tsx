@@ -1,13 +1,14 @@
 "use client"
 import Loader from '@/components/shared/Loader';
 import { useGetCategoriesQuery } from '@/redux/features/category/categoryApi';
+import { CategoryInterface } from '@/types/globalTypes';
 import { editDonation } from '@/utils/actions/editDonation';
 import React, { FormEvent, useState } from 'react';
 import toast from 'react-hot-toast';
 
 const EditDonation = ({ donation, setModifyDonation, setDonationPage }: { donation: any, setModifyDonation: any, setDonationPage: any }) => {
   const [formLoading, setFormLoading] = useState(false);
-  const { data: categories, isLoading } = useGetCategoriesQuery();
+  const { data: categories, isLoading } = useGetCategoriesQuery(undefined);
   const [donationData, setDonationData] = useState({
     title: donation.title,
     description: donation.description,
@@ -139,7 +140,7 @@ const EditDonation = ({ donation, setModifyDonation, setDonationPage }: { donati
                 <>
                   <option value=''>Select Category</option>
                   {
-                    categories?.map(category => <option key={category._id} value={category._id}>{category.name}</option>)
+                    categories?.content?.map((category: CategoryInterface) => <option key={category._id} value={category._id}>{category.name}</option>)
                   }
                 </>
             }
@@ -164,6 +165,7 @@ const EditDonation = ({ donation, setModifyDonation, setDonationPage }: { donati
             Edit Donation
           </button>
           <button
+            type='button'
             className='btn border-red-600 border-2 bg-white text-red-600 mt-4 hover:text-white hover:bg-red-600'
             disabled={formLoading}
             onClick={() => setDonationPage(1)}

@@ -45,6 +45,7 @@ const DeleteDonation = ({ donation, setModifyDonation, setDonationPage }: { dona
             Delete Donation
           </button>
           <button
+            type='button'
             className='btn border-red-600 border-2 bg-white text-red-600 mt-4 hover:text-white hover:bg-red-600'
             disabled={formLoading}
             onClick={() => setDonationPage(1)}

@@ -1,6 +1,7 @@
 "use client"
 import Loader from '@/components/shared/Loader';
 import { useGetCategoriesQuery } from '@/redux/features/category/categoryApi';
+import { CategoryInterface } from '@/types/globalTypes';
 import { createDonation } from '@/utils/actions/createDonation';
 import React, { FormEvent, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -19,7 +20,7 @@ const payload = {
 
 const AllDonationsPage = () => {
   const [formLoading, setFormLoading] = useState(false);
-  const { data: categories, isLoading } = useGetCategoriesQuery();
+  const { data: categories, isLoading } = useGetCategoriesQuery(undefined);
   const [donationData, setDonationData] = useState({ ...payload })
 
   // Post product
@@ -115,7 +116,7 @@ const AllDonationsPage = () => {
                 <>
                   <option value=''>Select Category</option>
                   {
-                    categories?.map(category => <option key={category._id} value={category._id}>{category.name}</option>)
+                    categories?.content?.map((category: CategoryInterface) => <option key={category._id} value={category._id}>{category.name}</option>)
                   }
                 </>
             }

@@ -1,13 +1,9 @@
 "use client";
-
+import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { ReactNode } from 'react';
 import { FaChartLine, FaDollarSign, FaHome, FaPlus, FaUser } from 'react-icons/fa';
-
-interface IDashboardSidebar {
-  role: string
-}
 
 interface IDashboardLink {
   title: string;
@@ -31,8 +27,9 @@ const userLinks: IDashboardLink[] = [
   { title: "Donation History", href: "/dashboard/donation-history", icon: <FaDollarSign className='w-5 h-5' /> },
 ]
 
-const DashboardSidebar = ({ session }: { session: IDashboardSidebar }) => {
+const DashboardSidebar = () => {
   const pathName = usePathname();
+  const { data: session } = useSession();
   const links = dashboardLinks.concat(session?.role === "admin" ? adminLinks : userLinks);
 
   return (

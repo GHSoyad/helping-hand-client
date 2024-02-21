@@ -1,3 +1,4 @@
+import ButtonBeta from '@/components/shared/ButtonBeta';
 import { DonationInterface } from '@/types/globalTypes';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -5,20 +6,19 @@ import React from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 
 const DonationCard = ({ donation }: { donation: DonationInterface }) => {
-  const { _id, title, picture, startDate, goal, raised, category, organizer } = donation;
+  const { _id, title, picture, startDate, goal, category, organizer } = donation;
 
   return (
-    <div className="overflow-hidden bg-white rounded-xl shadow">
+    <div className="overflow-hidden bg-white rounded-xl shadow hover:shadow-md transition-all duration-500 group/card">
       <div className="p-5">
         <div className="relative">
-          <div className="relative w-full h-52">
+          <div className="relative w-full h-52 overflow-hidden rounded-md">
             <Image
               src={picture}
               alt={title}
               fill={true}
-              className='rounded-md'
-              style={{ objectFit: "cover" }}
-              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 30vw"
+              className='group-hover/card:scale-110 transition-all duration-500'
+              sizes="(max-width: 768px) 80vw, (max-width: 1024px) 40vw, 20vw"
             />
           </div>
 
@@ -28,14 +28,16 @@ const DonationCard = ({ donation }: { donation: DonationInterface }) => {
         </div>
         <div className='flex justify-between'>
           <span className="block mt-6 text-xs font-semibold tracking-widest text-gray-500 uppercase">{startDate}</span>
-          <span className="block mt-6 text-xs font-semibold tracking-widest text-gray-500 uppercase">Raised : {raised}</span>
+          <span className="block mt-6 text-xs font-semibold tracking-widest text-gray-500 uppercase">Goal : {goal}</span>
         </div>
-        <p className="mt-5 text-xl font-semibold text-black">
+        <p className="my-5 text-xl font-semibold text-black">
           <Link href={`/donation/${_id}`} title="details-page" className='hover:text-primary'>{title}</Link>
         </p>
 
-        <Link href={`/donation/${_id}`} title="donate" className="inline-flex items-center justify-center pb-0.5 mt-5 text-base font-semibold text-primary transition-all duration-200 border-b-2 border-transparent hover:border-primary focus:border-primary">
-          <span className='me-2'>Donate Now</span> <FaArrowRight />
+        <Link href={`/donation/${_id}`} className='inline-flex'>
+          <ButtonBeta title="Details Page">
+            Donate Now <FaArrowRight />
+          </ButtonBeta>
         </Link>
       </div>
     </div>

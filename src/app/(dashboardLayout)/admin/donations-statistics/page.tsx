@@ -32,11 +32,12 @@ interface IDonationStat {
 
 const DonationStatisticsPage = () => {
   const [filter, setFilter] = useState("7");
-  const { responseData: statData, setUrl } = useGetMethod<IDonationStat[]>({
+  const [{ data: statData, loading }, setUrl] = useGetMethod<IDonationStat[]>({
     initialUrl: `statistics/payments?days=7&currentWeek=0&currentMonth=0&currentYear=0`,
     initialData: [],
     initialLoader: true,
-    cache: "no-cache"
+    cache: "no-cache",
+    secure: true
   });
 
   const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -62,17 +63,17 @@ const DonationStatisticsPage = () => {
       },
       y: {
         min: 0,
-        max: ((_.max(_.map(statData?.data, 'totalAmount')) || 0) + 100),
+        max: ((_.max(_.map(statData, 'totalAmount')) || 0) + 100),
       }
     }
   };
 
   const chartData = {
-    labels: statData?.data?.map(stat => stat?.date),
+    labels: statData?.map((stat) => stat?.date),
     datasets: [
       {
         label: "Amount Sold",
-        data: statData?.data?.map((stat) => stat.totalAmount),
+        data: statData?.map((stat) => stat.totalAmount),
         borderColor: '#6d0076',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
         pointRadius: 3,
@@ -102,7 +103,7 @@ const DonationStatisticsPage = () => {
       </div>
       <div className='flex justify-center relative min-h-96'>
         {
-          statData.loading && <Loader />
+          loading && <Loader />
         }
         <Line options={options} data={chartData} />
       </div>

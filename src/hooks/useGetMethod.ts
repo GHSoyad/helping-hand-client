@@ -1,4 +1,4 @@
-import { getSession } from 'next-auth/react';
+import { getSession, useSession } from 'next-auth/react';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 type TProps<T> = {
@@ -6,6 +6,7 @@ type TProps<T> = {
   initialData?: null | T,
   initialLoader?: boolean,
   cache?: RequestCache,
+  secure?: boolean,
 }
 
 type TData<T> = {
@@ -16,12 +17,12 @@ type TData<T> = {
 }
 
 
-const useGetMethod = <T>({ initialUrl = "", initialData = null, initialLoader = false, cache = "default" }: TProps<T>): {
+const useGetMethod = <T>({ initialUrl = "", initialData = null, initialLoader = false, cache = "default", secure = false }: TProps<T>): [
   responseData: TData<T>,
   setUrl: Dispatch<SetStateAction<string>>
-} => {
+] => {
+  const { data: session } = useSession();
   const [url, setUrl] = useState(initialUrl);
-  const [session, setSession] = useState({ token: null });
   const [responseData, setResponseData] = useState<TData<T>>({
     data: initialData,
     loading: initialLoader,
@@ -30,13 +31,7 @@ const useGetMethod = <T>({ initialUrl = "", initialData = null, initialLoader = 
   });
 
   useEffect(() => {
-    getSession()
-      .then(data => setSession(data as any))
-      .catch(err => console.log(err))
-  }, []);
-
-  useEffect(() => {
-    if (session?.token && url) {
+    if (((secure && session?.token) || !secure) && url) {
       setResponseData(prev => ({
         ...prev,
         loading: true,
@@ -78,11 +73,11 @@ const useGetMethod = <T>({ initialUrl = "", initialData = null, initialLoader = 
       }))
     }
     //eslint-disable-next-line
-  }, [session, url]);
+  }, [url]);
 
   // First index returns result state with data, loading, message and optionally error
   // Second index returns a set-url function to set-url manually, set empty string ("") to reset the result state
-  return { responseData, setUrl }
+  return [responseData, setUrl]
 };
 
 export default useGetMethod;

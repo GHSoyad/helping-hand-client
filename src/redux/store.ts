@@ -1,10 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import categoriesReducer from './features/category/categorySlice';
 import { categoryApi } from './features/category/categoryApi';
 
 export const store = configureStore({
   reducer: {
-    categories: categoriesReducer,
     [categoryApi.reducerPath]: categoryApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>

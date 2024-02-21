@@ -3,33 +3,35 @@ import { useGetCategoriesQuery } from '@/redux/features/category/categoryApi';
 import Sidebar from "@/components/ui/DonationsPage/Sidebar";
 import React, { useEffect, useState } from 'react';
 import DonationsSection from '@/components/ui/DonationsPage/DonationsSection';
+import useGetMethod from '@/hooks/useGetMethod';
+import { DonationInterface } from '@/types/globalTypes';
 
 const DonationsPage = ({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) => {
   const { searchText } = searchParams;
-  const [donations, setDonations] = useState([]);
-  const [loadingState, setLoadingState] = useState(true);
   const [filter, setFilter] = useState({ category: "" });
-  const { data: categories, isLoading } = useGetCategoriesQuery();
+  const { data: categories, isLoading } = useGetCategoriesQuery(undefined);
+  const [{ data: donations, loading }, setUrl] = useGetMethod<DonationInterface[]>({
+    initialUrl: `donations?searchText=${searchText || ""}&category=${filter?.category || ""}`,
+    initialData: [],
+    initialLoader: true,
+    cache: "no-cache",
+  });
 
   useEffect(() => {
-    setLoadingState(true);
-    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/donations?searchText=${searchText || ""}&category=${filter?.category || ""}`)
-      .then(res => res.json())
-      .then(data => setDonations(data))
-      .catch(err => console.log(err))
-      .finally(() => setLoadingState(false))
+    setUrl(`donations?searchText=${searchText || ""}&category=${filter?.category || ""}`);
+    //eslint-disable-next-line
   }, [searchText, filter])
 
   return (
     <div className='container mx-auto max-w-screen-xl px-2 md:px-4 xl:px-0 py-8 flex flex-col lg:flex-row gap-6'>
       <Sidebar
         setFilter={setFilter}
-        categories={categories || []}
+        categories={categories?.content || []}
         isLoading={isLoading}
       />
       <DonationsSection
         donations={donations}
-        loading={loadingState}
+        loading={loading}
       />
     </div>
   );

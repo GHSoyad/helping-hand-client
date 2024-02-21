@@ -4,7 +4,7 @@ import { DonationInterface } from '@/types/globalTypes';
 import Link from 'next/link';
 
 const FeaturedDonations = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/donations/featured`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/donations?featured=true&limit=4`);
   const data = await res.json();
   const donations: DonationInterface[] = data.content;
 
@@ -23,7 +23,7 @@ const FeaturedDonations = async () => {
       }
       <Link href='/donations'>
         <button
-          title="donation-page" className="btn border-primary border-2 bg-white hover:text-white hover:bg-primary my-10"
+          title="Donations" className="btn btn-wide border-primary border-2 bg-white hover:text-white hover:bg-primary my-10"
         >
           View More
         </button>

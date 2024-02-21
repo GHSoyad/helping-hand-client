@@ -1,7 +1,7 @@
 "use-client"
+import ButtonBeta from '@/components/shared/ButtonBeta';
 import { DonationInterface } from '@/types/globalTypes';
 import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 
@@ -9,17 +9,16 @@ const DonationCard = ({ donation, setModifyDonation, setDonationPage }: { donati
   const { _id, title, picture, startDate, category } = donation;
 
   return (
-    <div className="overflow-hidden bg-white rounded-xl shadow">
+    <div className="overflow-hidden bg-white rounded-xl shadow hover:shadow-md transition-all duration-500 group/card">
       <div className="p-5">
         <div className="relative">
-          <div className="relative w-full h-52">
+          <div className="relative w-full h-52 overflow-hidden rounded-md">
             <Image
               src={picture}
               alt={title}
               fill={true}
-              className='rounded-md'
-              style={{ objectFit: "cover" }}
-              sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 30vw"
+              className='group-hover/card:scale-110 transition-all duration-500'
+              sizes="(max-width: 768px) 80vw, (max-width: 1024px) 40vw, 20vw"
             />
           </div>
 
@@ -29,19 +28,22 @@ const DonationCard = ({ donation, setModifyDonation, setDonationPage }: { donati
         </div>
         <p className="block mt-6 text-xs font-semibold tracking-widest text-gray-500 uppercase">{startDate}</p>
         <p className="mt-5 text-xl font-semibold text-black">
-          <Link href={`/donation/${_id}`} title="details-page" className='hover:text-primary'>{title}</Link>
+          {title}
         </p>
 
-        <div className='flex justify-between'>
-          <button
-            title="edit-donation"
-            className="inline-flex items-center justify-center pb-0.5 mt-5 text-base font-semibold text-primary transition-all duration-200 border-b-2 border-transparent hover:border-primary focus:border-primary"
+        <div className='flex justify-between mt-5'>
+          <ButtonBeta
+            title="Edit"
+            onClick={() => { setModifyDonation(donation); setDonationPage(2) }}
           >
-            <span onClick={() => { setModifyDonation(donation); setDonationPage(2) }} className='me-2'>Edit</span> <FaEdit />
-          </button>
-          <button title="delete-donation" className="inline-flex items-center justify-center pb-0.5 mt-5 text-base font-semibold text-primary transition-all duration-200 border-b-2 border-transparent hover:border-primary focus:border-primary">
-            <span onClick={() => { setModifyDonation(donation); setDonationPage(3) }} className='me-2'>Delete</span> <FaTrash />
-          </button>
+            Edit <FaEdit />
+          </ButtonBeta>
+          <ButtonBeta
+            title="Delete"
+            onClick={() => { setModifyDonation(donation); setDonationPage(3) }}
+          >
+            Delete <FaTrash />
+          </ButtonBeta>
         </div>
       </div>
     </div>

@@ -1,40 +1,25 @@
 "use client";
 import Loader from '@/components/shared/Loader';
 import DonationCard from '@/components/ui/AdminPages/DonationCard';
+import useGetMethod from '@/hooks/useGetMethod';
 import { DonationInterface } from '@/types/globalTypes';
-import { getDonationsByUser } from '@/utils/actions/getDonationsByUser';
-import { getSession } from 'next-auth/react';
-import React, { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
+
 
 const AllDonations = ({ setModifyDonation, setDonationPage }: { setModifyDonation: any, setDonationPage: any }) => {
-  const [session, setSession] = useState({ _id: null });
-  const [donations, setDonations] = useState<DonationInterface[]>([]);
-  const [loadingState, setLoadingState] = useState(true);
+  const { data: session } = useSession();
+  const [{ data: donations, loading }] = useGetMethod<DonationInterface[]>({
+    initialUrl: `donations?userId=${session?._id}`,
+    initialData: [],
+    initialLoader: true,
+    cache: "no-cache",
+  })
 
-  useEffect(() => {
-    setLoadingState(true);
-    getSession()
-      .then(data => setSession(data as any))
-      .catch(err => {
-        console.log(err)
-        setLoadingState(false)
-      })
-  }, [])
-
-  useEffect(() => {
-    if (session?._id) {
-      setLoadingState(true);
-      getDonationsByUser(session?._id)
-        .then(data => setDonations(data))
-        .catch(err => console.log(err))
-        .finally(() => setLoadingState(false))
-    }
-  }, [session?._id])
 
   return (
     <>
       {
-        loadingState ?
+        loading ?
           <Loader />
           :
           donations?.length ?

@@ -1,44 +1,27 @@
 "use client"
-import React, { useEffect, useState } from 'react';
-import { getSession } from 'next-auth/react';
+import React from 'react';
+import { useSession } from 'next-auth/react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Pie } from 'react-chartjs-2';
 import Loader from '@/components/shared/Loader';
+import useGetMethod from '@/hooks/useGetMethod';
 ChartJS.register(ArcElement, Tooltip, Legend);
+
+type TDonationStat = {
+  totalDonation: number,
+  userTotalDonation: number,
+}
 
 
 const MyStatisticsPage = () => {
-  const [session, setSession] = useState({ _id: null, token: null });
-  const [totalData, setTotalData] = useState({ totalDonation: 0, userTotalDonation: 0 });
-  const [loadingState, setLoadingState] = useState(true);
-
-  useEffect(() => {
-    setLoadingState(true);
-    getSession()
-      .then(data => setSession(data as any))
-      .catch(err => {
-        console.log(err)
-        setLoadingState(false)
-      })
-  }, [])
-
-  useEffect(() => {
-    if (session?._id) {
-      setLoadingState(true);
-      fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/statistics/user-total-donation/${session._id}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${session?.token}`
-        },
-        cache: "no-cache",
-      })
-        .then(res => res.json())
-        .then(data => setTotalData(data.content))
-        .catch(err => console.log(err))
-        .finally(() => setLoadingState(false))
-    }
-  }, [session])
+  const { data: session } = useSession();
+  const [{ data: totalData, loading }] = useGetMethod<TDonationStat>({
+    initialUrl: `statistics/user-total-donation/${session?._id}`,
+    initialData: { totalDonation: 0, userTotalDonation: 0 },
+    initialLoader: true,
+    cache: "no-cache",
+    secure: true,
+  })
 
   const chartData = {
     labels: ['Total Donation', 'User Donation'],
@@ -58,18 +41,17 @@ const MyStatisticsPage = () => {
     ],
   };
 
+
   return (
     <div>
       <h2 className='text-center text-2xl font-medium pb-4'>My Donation Statistics</h2>
       <div className='flex justify-center mt-5 relative min-h-80'>
         {
-          loadingState ?
-            <Loader />
-            :
-            <div className='max-w-96'>
-              <Pie data={chartData} />
-            </div>
+          loading && <Loader />
         }
+        <div className='max-w-96'>
+          <Pie data={chartData} />
+        </div>
       </div>
     </div>
   );
