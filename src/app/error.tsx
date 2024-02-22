@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 
 const ErrorPage = ({
-  error,
+  // error,
   reset,
 }: {
   error: Error & { digest?: string }

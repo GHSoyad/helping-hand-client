@@ -1,12 +1,13 @@
 import React from 'react';
 import DonationCard from '../DonationsPage/DonationCard';
-import { DonationInterface } from '@/types/globalTypes';
+import { TDonation } from '@/types/globalTypes';
 import Link from 'next/link';
+
 
 const FeaturedDonations = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/donations?featured=true&limit=4`);
   const data = await res.json();
-  const donations: DonationInterface[] = data.content;
+  const donations: TDonation[] = await data.content;
 
   return (
     <div className='text-center'>

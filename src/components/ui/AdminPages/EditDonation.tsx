@@ -1,12 +1,19 @@
 "use client"
 import Loader from '@/components/shared/Loader';
 import { useGetCategoriesQuery } from '@/redux/features/category/categoryApi';
-import { CategoryInterface } from '@/types/globalTypes';
+import { TCategory, TDonation } from '@/types/globalTypes';
 import { editDonation } from '@/utils/actions/editDonation';
-import React, { FormEvent, useState } from 'react';
+import React, { Dispatch, FormEvent, SetStateAction, useState } from 'react';
 import toast from 'react-hot-toast';
 
-const EditDonation = ({ donation, setModifyDonation, setDonationPage }: { donation: any, setModifyDonation: any, setDonationPage: any }) => {
+type TEditDonationProps = {
+  donation: TDonation,
+  setModifyDonation: Dispatch<SetStateAction<TDonation | null>>,
+  setDonationPage: Dispatch<SetStateAction<number>>,
+}
+
+
+const EditDonation = ({ donation, setModifyDonation, setDonationPage }: TEditDonationProps) => {
   const [formLoading, setFormLoading] = useState(false);
   const { data: categories, isLoading } = useGetCategoriesQuery(undefined);
   const [donationData, setDonationData] = useState({
@@ -20,20 +27,20 @@ const EditDonation = ({ donation, setModifyDonation, setDonationPage }: { donati
     location: donation.location,
   })
 
-  const [formCheck, setFormCheck] = useState({
-    title: donation.title,
-    description: donation.description,
-    goal: donation.goal,
-    picture: donation.picture,
-    category: donation.category._id,
-    startDate: donation.startDate,
-    endDate: donation.endDate,
-    location: donation.location,
-  })
-
   // Patch product
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    const formCheck = {
+      title: donation.title,
+      description: donation.description,
+      goal: donation.goal,
+      picture: donation.picture,
+      category: donation.category._id,
+      startDate: donation.startDate,
+      endDate: donation.endDate,
+      location: donation.location,
+    }
 
     if (JSON.stringify(formCheck) === JSON.stringify(donationData)) {
       toast.error("Nothing to edit!");
@@ -140,7 +147,7 @@ const EditDonation = ({ donation, setModifyDonation, setDonationPage }: { donati
                 <>
                   <option value=''>Select Category</option>
                   {
-                    categories?.content?.map((category: CategoryInterface) => <option key={category._id} value={category._id}>{category.name}</option>)
+                    categories?.content?.map((category: TCategory) => <option key={category._id} value={category._id}>{category.name}</option>)
                   }
                 </>
             }

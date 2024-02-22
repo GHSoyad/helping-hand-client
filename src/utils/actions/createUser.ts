@@ -1,12 +1,12 @@
 "use server";
 
-interface UserPayloadInterface {
+type TUserPayload = {
   name: string,
   email: string,
   password: string
 }
 
-export const createUser = async (data: UserPayloadInterface) => {
+export const createUser = async (data: TUserPayload ) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/register`, {
     method: "POST",
     headers: {

@@ -1,7 +1,7 @@
-import { getSession, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
-type TProps<T> = {
+type TGetMethodProps<T> = {
   initialUrl: string,
   initialData?: null | T,
   initialLoader?: boolean,
@@ -9,7 +9,7 @@ type TProps<T> = {
   secure?: boolean,
 }
 
-type TData<T> = {
+type TResultResponse<T> = {
   data: null | T,
   loading: boolean,
   message: null | string,
@@ -17,13 +17,13 @@ type TData<T> = {
 }
 
 
-const useGetMethod = <T>({ initialUrl = "", initialData = null, initialLoader = false, cache = "default", secure = false }: TProps<T>): [
-  responseData: TData<T>,
+const useGetMethod = <T>({ initialUrl = "", initialData = null, initialLoader = false, cache = "default", secure = false }: TGetMethodProps<T>): [
+  responseData: TResultResponse<T>,
   setUrl: Dispatch<SetStateAction<string>>
 ] => {
   const { data: session } = useSession();
   const [url, setUrl] = useState(initialUrl);
-  const [responseData, setResponseData] = useState<TData<T>>({
+  const [responseData, setResponseData] = useState<TResultResponse<T>>({
     data: initialData,
     loading: initialLoader,
     message: null,
@@ -46,12 +46,12 @@ const useGetMethod = <T>({ initialUrl = "", initialData = null, initialLoader = 
         cache: cache,
       })
         .then(res => res.json())
-        .then(data =>
+        .then(result =>
           setResponseData(prev => ({
             ...prev,
-            data: data?.content,
+            data: result?.content,
             loading: false,
-            message: data?.message,
+            message: result?.message,
             error: null,
           }))
         )

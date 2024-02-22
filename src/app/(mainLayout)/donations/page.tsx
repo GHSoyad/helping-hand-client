@@ -4,13 +4,13 @@ import Sidebar from "@/components/ui/DonationsPage/Sidebar";
 import React, { useEffect, useState } from 'react';
 import DonationsSection from '@/components/ui/DonationsPage/DonationsSection';
 import useGetMethod from '@/hooks/useGetMethod';
-import { DonationInterface } from '@/types/globalTypes';
+import { TDonation } from '@/types/globalTypes';
 
 const DonationsPage = ({ searchParams }: { searchParams: { [key: string]: string | string[] | undefined } }) => {
   const { searchText } = searchParams;
   const [filter, setFilter] = useState({ category: "" });
   const { data: categories, isLoading } = useGetCategoriesQuery(undefined);
-  const [{ data: donations, loading }, setUrl] = useGetMethod<DonationInterface[]>({
+  const [{ data: donations, loading }, setUrl] = useGetMethod<TDonation[]>({
     initialUrl: `donations?searchText=${searchText || ""}&category=${filter?.category || ""}`,
     initialData: [],
     initialLoader: true,

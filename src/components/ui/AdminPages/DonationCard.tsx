@@ -1,12 +1,18 @@
 "use-client"
 import ButtonBeta from '@/components/shared/ButtonBeta';
-import { DonationInterface } from '@/types/globalTypes';
+import { TDonation } from '@/types/globalTypes';
 import Image from 'next/image';
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 
-const DonationCard = ({ donation, setModifyDonation, setDonationPage }: { donation: DonationInterface, setModifyDonation: any, setDonationPage: any }) => {
-  const { _id, title, picture, startDate, category } = donation;
+type TCardProps = {
+  donation: TDonation,
+  setModifyDonation : Dispatch<SetStateAction<TDonation | null>>,
+  setDonationPage : Dispatch<SetStateAction<number>>,
+}
+
+const DonationCard = ({ donation, setModifyDonation, setDonationPage }: TCardProps) => {
+  const { title, picture, startDate, category } = donation;
 
   return (
     <div className="overflow-hidden bg-white rounded-xl shadow hover:shadow-md transition-all duration-500 group/card">

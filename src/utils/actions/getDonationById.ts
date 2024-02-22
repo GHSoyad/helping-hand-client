@@ -1,5 +1,5 @@
 "use server";
-import { DonationInterface } from "@/types/globalTypes";
+import { TDonation } from "@/types/globalTypes";
 
 
 export const getDonationById = async (donationId: string) => {
@@ -11,7 +11,7 @@ export const getDonationById = async (donationId: string) => {
     }
   });
 
-  const donation: DonationInterface = await res.json();
+  const donation: TDonation = await res.json();
 
   return donation;
 }

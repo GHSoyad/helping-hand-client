@@ -1,10 +1,18 @@
 "use client"
 import Loader from '@/components/shared/Loader';
+import { TDonation } from '@/types/globalTypes';
 import { deleteDonation } from '@/utils/actions/deleteDonation';
-import React, { FormEvent, useState } from 'react';
+import React, { Dispatch, FormEvent, SetStateAction, useState } from 'react';
 import toast from 'react-hot-toast';
 
-const DeleteDonation = ({ donation, setModifyDonation, setDonationPage }: { donation: any, setModifyDonation: any, setDonationPage: any }) => {
+type TDeleteDonationProps = {
+  donation: TDonation,
+  setModifyDonation : Dispatch<SetStateAction<TDonation | null>>,
+  setDonationPage : Dispatch<SetStateAction<number>>,
+}
+
+
+const DeleteDonation = ({ donation, setModifyDonation, setDonationPage }: TDeleteDonationProps) => {
   const [formLoading, setFormLoading] = useState(false);
 
   // Patch product

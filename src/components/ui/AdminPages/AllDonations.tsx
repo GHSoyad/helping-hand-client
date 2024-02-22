@@ -2,13 +2,19 @@
 import Loader from '@/components/shared/Loader';
 import DonationCard from '@/components/ui/AdminPages/DonationCard';
 import useGetMethod from '@/hooks/useGetMethod';
-import { DonationInterface } from '@/types/globalTypes';
+import { TDonation } from '@/types/globalTypes';
 import { useSession } from 'next-auth/react';
+import React, { Dispatch, SetStateAction } from 'react';
+
+type TAllDonationsProps = {
+  setModifyDonation : Dispatch<SetStateAction<TDonation | null>>,
+  setDonationPage : Dispatch<SetStateAction<number>>,
+}
 
 
-const AllDonations = ({ setModifyDonation, setDonationPage }: { setModifyDonation: any, setDonationPage: any }) => {
+const AllDonations = ({ setModifyDonation, setDonationPage }: TAllDonationsProps) => {
   const { data: session } = useSession();
-  const [{ data: donations, loading }] = useGetMethod<DonationInterface[]>({
+  const [{ data: donations, loading }] = useGetMethod<TDonation[]>({
     initialUrl: `donations?userId=${session?._id}`,
     initialData: [],
     initialLoader: true,

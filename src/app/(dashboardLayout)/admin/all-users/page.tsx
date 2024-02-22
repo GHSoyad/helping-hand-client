@@ -1,12 +1,12 @@
 import MakeAdmin from '@/components/ui/AdminPages/MakeAdmin';
-import { UserInterface } from '@/types/globalTypes';
+import { TUser } from '@/types/globalTypes';
 import { getAllUsers } from '@/utils/actions/getAllUsers';
 import React from 'react';
 
 
 const AllUsers = async () => {
   const res = await getAllUsers();
-  const users: UserInterface[] = res.content;
+  const users: TUser[] = res.content;
 
   return (
     <div>

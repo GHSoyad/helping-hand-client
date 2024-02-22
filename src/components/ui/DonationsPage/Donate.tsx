@@ -1,5 +1,6 @@
 "use client"
 import { createDonationPayment } from '@/utils/actions/createDonationPayment';
+import { Session } from 'next-auth';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
@@ -7,13 +8,13 @@ import toast from 'react-hot-toast';
 
 
 const Donate = ({ id }: { id: string }) => {
-  const [session, setSession] = useState({ _id: null });
+  const [session, setSession] = useState<Session | null>(null);
   const [formLoading, setFormLoading] = useState(false);
   const [confirmation, setConfirmation] = useState(false);
 
   useEffect(() => {
     getSession()
-      .then(data => setSession(data as any))
+      .then(data => setSession(data))
       .catch(err => console.log(err))
   }, []);
 

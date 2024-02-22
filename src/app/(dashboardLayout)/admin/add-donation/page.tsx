@@ -1,7 +1,7 @@
 "use client"
 import Loader from '@/components/shared/Loader';
 import { useGetCategoriesQuery } from '@/redux/features/category/categoryApi';
-import { CategoryInterface } from '@/types/globalTypes';
+import { TCategory } from '@/types/globalTypes';
 import { createDonation } from '@/utils/actions/createDonation';
 import React, { FormEvent, useState } from 'react';
 import toast from 'react-hot-toast';
@@ -116,7 +116,7 @@ const AllDonationsPage = () => {
                 <>
                   <option value=''>Select Category</option>
                   {
-                    categories?.content?.map((category: CategoryInterface) => <option key={category._id} value={category._id}>{category.name}</option>)
+                    categories?.content?.map((category: TCategory) => <option key={category._id} value={category._id}>{category.name}</option>)
                   }
                 </>
             }

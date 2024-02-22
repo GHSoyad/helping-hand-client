@@ -1,12 +1,12 @@
 import ButtonBeta from '@/components/shared/ButtonBeta';
-import { DonationInterface } from '@/types/globalTypes';
+import { TDonation } from '@/types/globalTypes';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 
-const DonationCard = ({ donation }: { donation: DonationInterface }) => {
-  const { _id, title, picture, startDate, goal, category, organizer } = donation;
+const DonationCard = ({ donation }: { donation: TDonation }) => {
+  const { _id, title, picture, startDate, goal, category } = donation;
 
   return (
     <div className="overflow-hidden bg-white rounded-xl shadow hover:shadow-md transition-all duration-500 group/card">

@@ -1,26 +1,32 @@
-export interface CategoryInterface {
+export type TCategory = {
   _id: string,
-  name: string
+  name: string,
 }
 
-export interface UserInterface {
+export type TUser = {
   _id: string,
   name: string,
   email: string,
   password: string,
-  role: string
+  role: string,
 }
 
-export interface DonationInterface {
+export type TDonation = {
   _id: string,
   title: string,
   description: string,
   goal: number,
   raised: number,
   picture: string,
-  category: CategoryInterface,
-  organizer: UserInterface,
+  category: TCategory,
+  organizer: TUser,
   startDate: string,
   endDate: string,
   location: string,
+}
+
+export type TGetResponse<T> ={
+  message: string,
+  success: boolean,
+  content: T,
 }

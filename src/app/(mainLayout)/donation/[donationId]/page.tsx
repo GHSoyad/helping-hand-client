@@ -3,11 +3,11 @@ import { getDonationById } from '@/utils/actions/getDonationById';
 import Image from 'next/image';
 import React from 'react';
 
-type TParams = {
+type TDonationParams = {
   donationId: string;
 };
 
-const DonationPage = async ({ params }: { params: TParams }) => {
+const DonationPage = async ({ params }: { params: TDonationParams }) => {
 
   const donation = await getDonationById(params.donationId)
 

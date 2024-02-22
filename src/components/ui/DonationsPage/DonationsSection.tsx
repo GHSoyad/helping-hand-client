@@ -1,9 +1,9 @@
-import { DonationInterface } from '@/types/globalTypes';
+import { TDonation } from '@/types/globalTypes';
 import React from 'react';
 import DonationCard from './DonationCard';
 import Loader from '@/components/shared/Loader';
 
-const DonationsSection = ({ donations, loading }: { donations: DonationInterface[] | null, loading: boolean }) => {
+const DonationsSection = ({ donations, loading }: { donations: TDonation[] | null, loading: boolean }) => {
 
 
   return (

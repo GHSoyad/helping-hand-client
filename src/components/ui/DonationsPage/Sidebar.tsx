@@ -1,13 +1,13 @@
-import { CategoryInterface } from '@/types/globalTypes';
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import { TCategory } from '@/types/globalTypes';
+import React, { ChangeEvent } from 'react';
 
-interface SidebarInterface {
+type TSidebar = {
   setFilter: Function,
-  categories: CategoryInterface[],
+  categories: TCategory[],
   isLoading: boolean,
 }
 
-const Sidebar = ({ setFilter, categories, isLoading }: SidebarInterface) => {
+const Sidebar = ({ setFilter, categories, isLoading }: TSidebar) => {
 
   const handleFilter = (e: ChangeEvent<HTMLSelectElement>) => {
     setFilter({
@@ -31,7 +31,7 @@ const Sidebar = ({ setFilter, categories, isLoading }: SidebarInterface) => {
                 <>
                   <option value="">All Categories</option>
                   {
-                    categories.map((category: CategoryInterface) => <option key={category._id} value={category._id}>{category.name}</option>)
+                    categories.map((category: TCategory) => <option key={category._id} value={category._id}>{category.name}</option>)
                   }
                 </>
                 :

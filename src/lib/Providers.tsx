@@ -3,8 +3,14 @@ import React from 'react';
 import { Provider } from "react-redux";
 import { store } from "@/redux/store";
 import { SessionProvider } from 'next-auth/react';
+import { Session } from 'next-auth';
 
-const Providers = ({ children, session }: { children: React.ReactNode, session: any }) => {
+type TProviderProps = {
+  children:React.ReactNode,
+  session: Session | null,
+}
+
+const Providers = ({ children, session }: TProviderProps) => {
   return (
     <Provider store={store}>
       <SessionProvider session={session}>
