@@ -1,6 +1,7 @@
 import React from 'react';
 import HeroBannerSearch from "@/components/ui/Homepage/HeroBannerSearch";
 import FeaturedDonations from '@/components/ui/Homepage/FeaturedDonations';
+import AboutUs from '@/components/ui/Homepage/AboutUs';
 
 const Homepage: React.FC = () => {
   return (
@@ -23,6 +24,9 @@ const Homepage: React.FC = () => {
       </section>
       <section className='container mx-auto max-w-screen-xl px-2 md:px-4 xl:px-0 py-8'>
         <FeaturedDonations />
+      </section>
+      <section className='container mx-auto max-w-screen-xl px-2 md:px-4 xl:px-0 py-8 mb-10'>
+        <AboutUs />
       </section>
     </main>
   );

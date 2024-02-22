@@ -17,25 +17,25 @@ interface FooterLinks {
 const footerLinks: FooterLinks = {
   "Learn More": [
     { name: "About Us", href: "/about" },
-    { name: "Our Mission", href: "/mission" },
-    { name: "Impact Stories", href: "/impact" }
+    { name: "Our Mission", href: "/" },
+    { name: "Impact Stories", href: "/" }
   ],
   "Get Involved": [
-    { name: "Donate Now", href: "/donate" },
-    { name: "Volunteer Opportunities", href: "/volunteer" },
-    { name: "Join Our Community", href: "/join" }
+    { name: "Donate Now", href: "/donations" },
+    { name: "Volunteer Opportunities", href: "/" },
+    { name: "Join Our Community", href: "/" }
   ],
   "Resources": [
-    { name: "FAQ", href: "/faq" },
-    { name: "Blog", href: "/blog" },
+    { name: "FAQ", href: "/" },
+    { name: "Blog", href: "/" },
     { name: "Contact Us", href: "/contact" }
   ]
 };
 
 const socialLinks: FooterLink[] = [
-  { name: "FaceBook", href: "/faq", icon: <FaFacebook /> },
-  { name: "Github", href: "/blog", icon: <FaGithub /> },
-  { name: "LinkedIn", href: "/contact", icon: <FaLinkedin /> }
+  { name: "FaceBook", href: "/", icon: <FaFacebook /> },
+  { name: "Github", href: "https://github.com/GHSoyad", icon: <FaGithub /> },
+  { name: "LinkedIn", href: "https://www.linkedin.com/in/ghsoyad/", icon: <FaLinkedin /> }
 ]
 
 const Footer: React.FC = () => {
