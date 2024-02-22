@@ -1,4 +1,3 @@
-"use-client"
 import ButtonBeta from '@/components/shared/ButtonBeta';
 import { TDonation } from '@/types/globalTypes';
 import Image from 'next/image';
@@ -7,8 +6,8 @@ import { FaEdit, FaTrash } from 'react-icons/fa';
 
 type TCardProps = {
   donation: TDonation,
-  setModifyDonation : Dispatch<SetStateAction<TDonation | null>>,
-  setDonationPage : Dispatch<SetStateAction<number>>,
+  setModifyDonation: Dispatch<SetStateAction<TDonation | null>>,
+  setDonationPage: Dispatch<SetStateAction<number>>,
 }
 
 const DonationCard = ({ donation, setModifyDonation, setDonationPage }: TCardProps) => {

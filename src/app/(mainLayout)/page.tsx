@@ -1,7 +1,8 @@
 import React from 'react';
 import HeroBannerSearch from "@/components/ui/Homepage/HeroBannerSearch";
 import FeaturedDonations from '@/components/ui/Homepage/FeaturedDonations';
-import AboutUs from '@/components/ui/Homepage/AboutUs';
+import AboutCompany from '@/components/ui/Homepage/AboutCompany';
+import StatisticsCounter from '@/components/ui/Homepage/StatisticsCounter';
 
 const Homepage: React.FC = () => {
   return (
@@ -18,15 +19,19 @@ const Homepage: React.FC = () => {
           <p className="mt-4 sm:text-xl sm:leading-relaxed font-medium text-white" style={{ textShadow: '0 0 3px black' }}>
             Join us in making a difference in the world!
           </p>
-
           <HeroBannerSearch />
         </div>
       </section>
       <section className='container mx-auto max-w-screen-xl px-2 md:px-4 xl:px-0 py-8'>
         <FeaturedDonations />
       </section>
-      <section className='container mx-auto max-w-screen-xl px-2 md:px-4 xl:px-0 py-8 mb-10'>
-        <AboutUs />
+      <section className='container mx-auto max-w-screen-xl px-2 md:px-4 xl:px-0 py-8 mb-16'>
+        <AboutCompany />
+      </section>
+      <section className="bg-primary py-20 w-full mb-20">
+        <div className='container mx-auto max-w-screen-xl px-2 md:px-4 xl:px-0'>
+          <StatisticsCounter />
+        </div>
       </section>
     </main>
   );
