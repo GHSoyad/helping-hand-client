@@ -18,7 +18,7 @@ const AboutCompany = () => {
         />
       </div>
       <div className='md:pl-8 relative'>
-        <div className='absolute bottom-20 md:-top-2 right-10'>
+        <div className='absolute bottom-10 right-5 md:right-10 md:top-0'>
           <Image
             src={stars}
             alt={"Stars"}
@@ -27,7 +27,7 @@ const AboutCompany = () => {
           ></Image>
         </div>
         <p className='text-lg font-semibold text-primary mb-2'>About Company</p>
-        <h6 className='text-3xl md:text-4xl font-bold mb-3'>Rise Your Hand To Help <br className='mb-1' /> The Poor Children</h6>
+        <h6 className='text-3xl md:text-4xl font-bold mb-3'>Raise Your Hand <br className='mb-1' /> To Help The Children</h6>
         <p className='text-gray-500 text-justify mb-8'>
           We are driven by an unwavering dedication to making a meaningful and lasting impact on the lives of underprivileged children. Our mission is rooted in the profound belief that every child deserves a chance to thrive and succeed, regardless of their circumstances. With this vision guiding us, we tirelessly strive to provide essential support and vital resources that pave the way for a brighter future for these vulnerable youngsters.
         </p>

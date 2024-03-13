@@ -17,6 +17,7 @@ const DonationCard = ({ donation }: { donation: TDonation }) => {
               src={picture}
               alt={title}
               fill={true}
+              style={{ objectFit: "cover" }}
               className='group-hover/card:scale-110 transition-all duration-500'
               sizes="(max-width: 768px) 80vw, (max-width: 1024px) 40vw, 20vw"
             />

@@ -17,20 +17,22 @@ const StatisticsCounter = () => {
       {
         counter.map((item, index) => (
           <div key={index} className='flex justify-center'>
-
-            <div className='min-w-44 relative'>
+            <div className='min-w-44 relative ml-20'>
               <div className='absolute -left-20'>
                 {item.icon}
               </div>
               <CountUp
-                start={11}
+                start={111}
                 end={item.number}
                 duration={3}
                 suffix='+'
                 enableScrollSpy
+                scrollSpyDelay={100}
                 scrollSpyOnce
-                className='font-bold'
-              />
+                separator=''
+              >
+                {({ countUpRef }) => <span ref={countUpRef} className='font-bold' />}
+              </CountUp>
               <p className='text-xl pt-2 font-medium'>{item.name}</p>
             </div>
           </div>

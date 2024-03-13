@@ -3,6 +3,7 @@ import HeroBannerSearch from "@/components/ui/Homepage/HeroBannerSearch";
 import FeaturedDonations from '@/components/ui/Homepage/FeaturedDonations';
 import AboutCompany from '@/components/ui/Homepage/AboutCompany';
 import StatisticsCounter from '@/components/ui/Homepage/StatisticsCounter';
+import WhatWeDo from '@/components/ui/Homepage/WhatWeDo';
 
 const Homepage: React.FC = () => {
   return (
@@ -22,17 +23,25 @@ const Homepage: React.FC = () => {
           <HeroBannerSearch />
         </div>
       </section>
+
       <section className='container mx-auto max-w-screen-xl px-2 md:px-4 xl:px-0 py-8'>
         <FeaturedDonations />
       </section>
-      <section className='container mx-auto max-w-screen-xl px-2 md:px-4 xl:px-0 py-8 mb-16'>
+
+      <section className='container mx-auto max-w-screen-xl px-2 md:px-4 xl:px-0 py-8 mb-12 md:mb-16'>
         <AboutCompany />
       </section>
-      <section className="bg-primary py-20 w-full mb-20">
+
+      <section className="bg-primary py-20 w-full my-12 md:my-20">
         <div className='container mx-auto max-w-screen-xl px-2 md:px-4 xl:px-0'>
           <StatisticsCounter />
         </div>
       </section>
+
+      <section className='container mx-auto max-w-screen-xl px-2 md:px-4 xl:px-0 py-8 mb-16'>
+        <WhatWeDo />
+      </section>
+
     </main>
   );
 };

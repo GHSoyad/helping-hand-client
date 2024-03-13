@@ -5,6 +5,7 @@ import Providers from "@/lib/Providers";
 import { Toaster } from "react-hot-toast";
 import { Session, getServerSession } from "next-auth";
 import { authOptions } from "@/utils/authOptions";
+import 'swiper/css/bundle';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const session : Session | null = await getServerSession(authOptions);
+  const session: Session | null = await getServerSession(authOptions);
 
   return (
     <Providers session={session}>

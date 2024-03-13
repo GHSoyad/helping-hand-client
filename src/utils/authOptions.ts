@@ -27,7 +27,7 @@ export const authOptions = {
         // If no error and we have user data, return it
         if (res.status === 200 && user) {
           return user.content;
-        }else if(res.status === 409){
+        } else if (res.status === 409) {
           throw new Error(user.message)
         }
 
@@ -52,7 +52,7 @@ export const authOptions = {
       };
     },
   },
-  secret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: '/login',
   }
